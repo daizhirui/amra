@@ -421,6 +421,7 @@ void AMRAStar::expand(AMRAState *s, int hidx)
 	std::vector<int> action_ids;
 	if (is_goal(s->state_id))
 	{
+        throw std::runtime_error("should not expand from goal state");
 		succ_ids.push_back(m_goal_id);
 		costs.push_back(0);
 		action_ids.push_back(-1);

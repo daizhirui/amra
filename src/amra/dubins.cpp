@@ -4,7 +4,7 @@
 #include <amra/helpers.hpp>
 
 // system includes
-
+#include <cassert>
 // standard includes
 
 namespace AMRA

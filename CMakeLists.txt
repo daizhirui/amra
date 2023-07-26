@@ -43,3 +43,9 @@ target_link_libraries(runuav AMRA)
 add_executable(ompl_run test/ompl_run.cpp)
 target_include_directories(ompl_run SYSTEM PRIVATE ${OMPL_INCLUDE_DIRS})
 target_link_libraries(ompl_run AMRA SMPL ${OMPL_LIBRARIES})
+
+enable_testing()
+add_test(
+        NAME run2d
+        COMMAND run2d dat/Octopus.map
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
