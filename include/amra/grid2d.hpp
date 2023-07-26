@@ -9,6 +9,7 @@
 
 // standard includes
 #include <memory>
+#include <fstream>
 
 namespace std {
 
@@ -58,6 +59,42 @@ public:
 	void GetStateFromID(const int& id, MapState& state);
 
 	Resolution::Level GetResLevel(const int& state_id) override;
+
+    ~Grid2D() {
+        std::size_t num_states = m_states.size();
+        if (num_states == 0) { return; }
+        std::ofstream file("grid_2d_map_states.csv");
+        std::size_t cont_state_dims = m_states[0]->state.size();
+        std::size_t dist_state_dims = m_states[0]->coord.size();
+		file << "id,";
+		for (std::size_t i = 0; i < cont_state_dims; ++i) {
+			file << "cont_" << i;
+			if (i < cont_state_dims - 1) {
+				file << ",";
+			}
+		}
+		if (dist_state_dims > 0 && cont_state_dims > 0) {
+			file << ",";
+		}
+		for (std::size_t i = 0; i < dist_state_dims; ++i) {
+			file << "dist_" << i;
+			if (i < dist_state_dims - 1) {
+				file << ",";
+			}
+		}
+		file << ",level" << std::endl;
+        for (std::size_t i = 0; i < num_states; ++i) {
+            file << i << ",";
+            for (std::size_t j = 0; j < cont_state_dims; ++j) {
+                file << m_states[i]->state[j] << ",";
+            }
+            for (std::size_t j = 0; j < dist_state_dims; ++j) {
+                file << m_states[i]->coord[j] << ",";
+            }
+            file << m_states[i]->level << std::endl;
+        }
+        file.close();
+    }
 
 private:
 	std::string m_mapname;

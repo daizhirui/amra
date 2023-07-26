@@ -245,14 +245,15 @@ int AMRAStar::replan(
 			s->closed_in_anc = false;
 			insert_or_update(s, 0);
 		}
-		m_incons.clear();
+		m_incons.clear();  // L52 of Alg1 in the paper
 
+        // L53 to L56 of Alg1
 		for (auto it = m_open[0].begin(); it != m_open[0].end(); ++it)
 		{
 			for (auto hidx = 1; hidx < num_heuristics(); hidx++)
 			{
 				// numerically greater resolutions are coarser
-				if ((*it)->me->res >= m_heurs_map.at(hidx).first)
+				if ((*it)->me->res >= m_heurs_map.at(hidx).first)  // L55 of Alg1
 				{
 					(*it)->me->od[hidx].f = compute_key((*it)->me, hidx);
 					int hres = static_cast<int>(m_heurs_map.at(hidx).first);
@@ -263,6 +264,7 @@ int AMRAStar::replan(
 		}
 		reorder_open();
 
+        // L57 to L58 of Alg1
 		for (size_t i = 0; i < m_states.size(); ++i)
 		{
 			if (m_states[i] != nullptr)
@@ -274,6 +276,7 @@ int AMRAStar::replan(
 			}
 		}
 
+        // L59 to L60 of Alg1
 		double search_start_time = GetTime();
 		double search_time = 0.0;
 		int curr_exps = get_n_expands();
@@ -295,8 +298,10 @@ int AMRAStar::replan(
 		}
 
 		if (m_w1 == m_w1_f && m_w2 == m_w2_f) {
-			break;
+			break;  // L62 of Alg1
 		}
+
+        // L63 of Alg1
 		m_w1 = std::max(m_w1_f, m_w1 * m_w1_delta);
 		m_w2 = std::max(m_w2_f, m_w2 * m_w2_delta);
 
@@ -455,10 +460,12 @@ void AMRAStar::expand(AMRAState *s, int hidx)
 			}
 			else
 			{
+                // L16 of Alg1
 				unsigned int f_0 = compute_key(succ_state, 0);
 				succ_state->od[0].f = f_0;
 				insert_or_update(succ_state, 0);
 
+                // L17 to L23 of Alg1
 				for (int j = 1; j < num_heuristics(); ++j)
 				{
 					int hres_j = static_cast<int>(m_heurs_map.at(j).first);

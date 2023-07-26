@@ -32,7 +32,7 @@ struct MapState
 {
 	DiscState coord;
 	ContState state;
-	Resolution::Level level;
+	Resolution::Level level;  // the resolution level where this state is created
 };
 typedef std::map<int, std::vector<MapState*> > EXPANDS_t;
 
