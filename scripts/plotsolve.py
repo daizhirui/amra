@@ -118,4 +118,3 @@ for f in os.listdir(EXPS_DIR):
 	# plt.show()
 	plt.savefig(IMG_DIR + f + '.png', bbox_inches='tight')
 	plt.cla()
-

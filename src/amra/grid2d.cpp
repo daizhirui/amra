@@ -157,6 +157,7 @@ bool Grid2D::Plan(bool save)
 		printf("Goal: {%d, %d},\n", m_g1, m_g2);
 	}
 
+    m_search->set_save(save);
 	m_search->set_start(m_start_id);
 	m_search->set_goal(m_goal_id);
 
@@ -170,8 +171,10 @@ bool Grid2D::Plan(bool save)
 	std::vector<int> solution;
 	std::vector<int> action_ids;
     int solcost;
+    double t = GetTime();
     bool result = m_search->replan(&solution, &action_ids, &solcost);
-
+    t = GetTime() - t;
+    SMPL_INFO("Planning Time: %0.3f", t);
 
 	if (result && save)
 	{

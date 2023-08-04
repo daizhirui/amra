@@ -71,7 +71,7 @@ private:
 	Environment* m_space = nullptr;
 
 	std::vector<std::shared_ptr<Heuristic>> m_heurs;
-	std::vector<std::pair<Resolution::Level, int> > m_heurs_map;
+	std::vector<std::pair<Resolution::Level, int> > m_heurs_map;  // <resolution level, index of heuristic function>
 	int m_heur_count, m_res_count;
 
 	struct HeapCompare {

@@ -21,9 +21,9 @@ const std::map<char, int> AMRA::MOVINGAI_DICT = {
 const int AMRA::MIDRES_MULT = 3;
 const int AMRA::LOWRES_MULT = 9;
 // number of resolutions to use in the search (>= 1, <= 3)
-const int AMRA::NUM_RES = 2;
+const int AMRA::NUM_RES = 3;
 // 4-connected or 8-connected grid
-const int AMRA::GRID = 4;
+const int AMRA::GRID = 8;
 // set true if using maps with non-uniform cell costs
 const bool AMRA::COSTMAP = false;
 

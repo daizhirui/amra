@@ -67,6 +67,7 @@ std::ostream& operator<<(std::ostream& out, const MapState& s)
 class Search
 {
 public:
+    void set_save(bool save) { m_save = save; }
 	virtual int set_start(int start_id) = 0;
 	virtual int set_goal(int goal_id) = 0;
 	virtual void set_max_planning_time(double max_planning_time_ms) = 0;
@@ -91,6 +92,7 @@ public:
 protected:
 	double m_initial_t, m_final_t;
 	int m_initial_c, m_final_c, m_total_e;
+    bool m_save = false;
 };
 
 class Environment

@@ -45,7 +45,12 @@ target_include_directories(ompl_run SYSTEM PRIVATE ${OMPL_INCLUDE_DIRS})
 target_link_libraries(ompl_run AMRA SMPL ${OMPL_LIBRARIES})
 
 enable_testing()
-add_test(
-        NAME run2d
-        COMMAND run2d dat/Octopus.map
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+file(GLOB map_files dat/*.map)
+foreach (map_file ${map_files})
+    get_filename_component(map_name ${map_file} NAME_WE)
+    add_test(
+            NAME run2d_${map_name}
+            COMMAND run2d ${map_file}
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+endforeach ()

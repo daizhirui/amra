@@ -204,6 +204,7 @@ int AMRAStar::replan(
 	std::vector<int>* action_ids,
 	int* solution_cost)
 {
+    double search_start_time = GetTime();
 	if (is_goal(m_start_id))
 	{
 		// m_logger->LogMsg("Start is goal!", LogLevel::WARN);
@@ -239,7 +240,7 @@ int AMRAStar::replan(
 
 	while (m_search_time < m_time_limit && (m_w1 >= m_w1_f && m_w2 >= m_w2_f))
 	{
-		for (auto* s : m_incons)
+        for (auto* s : m_incons)
 		{
 			s->od[0].f = compute_key(s, 0);
 			s->closed_in_anc = false;
@@ -275,14 +276,16 @@ int AMRAStar::replan(
 				}
 			}
 		}
+        m_search_time += GetTime() - search_start_time;
+        search_start_time = GetTime();
 
         // L59 to L60 of Alg1
-		double search_start_time = GetTime();
 		double search_time = 0.0;
 		int curr_exps = get_n_expands();
 		bool result = improve_path(search_start_time, search_time);
 
 		m_search_time += search_time;
+        search_start_time = GetTime();
 
 		if(!result || m_search_time >= m_time_limit) {
 			break;
@@ -292,8 +295,8 @@ int AMRAStar::replan(
 		}
 
 		extract_path(*solution_path, *action_ids, *solution_cost);
-		SMPL_INFO("Solved with (%f, %f) | expansions = %s | time = %f | cost = %d", m_w1, m_w2, get_expands_str().c_str(), search_time, *solution_cost);
-		if (curr_exps < get_n_expands()) {
+		SMPL_INFO("Solved with (%f, %f) | expansions = %s | time = %f | cost = %d", m_w1, m_w2, get_expands_str().c_str(), m_search_time, *solution_cost);
+		if (m_save & (curr_exps < get_n_expands())) {
 			m_space->SaveExpansions(m_iter, m_w1, m_w2, *solution_path, *action_ids);
 		}
 
