@@ -31,11 +31,11 @@ main(int argc, char** argv) {
     for (int i = 0; i < 1; ++i) {
         Grid2D grid(mapfile);
         if (mapfile.rfind("Boston_0_1024.map") != std::string::npos) {
-            grid.SetStart(828, 657);
+            grid.SetStart(100, 100);
             grid.SetGoal(1008, 756);
         } else if (mapfile.rfind("Cauldron.map") != std::string::npos) {
-            grid.SetStart(342, 450);
-            grid.SetGoal(522, 333);
+            grid.SetStart(100, 800);
+            grid.SetGoal(950, 400);
         } else if (mapfile.rfind("Denver_0_1024.map") != std::string::npos) {
             grid.SetStart(306, 171);
             grid.SetGoal(1008, 603);

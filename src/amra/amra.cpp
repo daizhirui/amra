@@ -160,7 +160,7 @@ AMRAState* AMRAStar::get_state(int state_id)
 
 		// assert(state_id == m_states.size());
 
-		init_state(s, state_id);
+		initial_state(s, state_id);
 		m_states.push_back(s);
 
 		return s;
@@ -169,7 +169,7 @@ AMRAState* AMRAStar::get_state(int state_id)
 	return m_states[state_id];
 }
 
-void AMRAStar::init_state(AMRAState *state, int state_id)
+void AMRAStar::initial_state(AMRAState *state, int state_id)
 {
 	state->call_number = 0; // not initialized for any iteration
 	state->state_id = state_id;

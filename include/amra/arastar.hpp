@@ -97,7 +97,7 @@ private:
 
 	ARAStarState* get_state(int state_id);
 	// ARAStarState* create_state(int state_id);
-	void init_state(ARAStarState *state, int state_id);
+	void initial_state(ARAStarState *state, int state_id);
 	void reinit_state(ARAStarState *state);
 
 	bool improve_path(

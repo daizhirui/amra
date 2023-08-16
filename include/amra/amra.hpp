@@ -107,7 +107,7 @@ private:
 
 	AMRAState* get_state(int state_id);
 	// AMRAState* create_state(int state_id);
-	void init_state(AMRAState *state, int state_id);
+	void initial_state(AMRAState *state, int state_id);
 	void reinit_state(AMRAState *state);
 
 	bool improve_path(
